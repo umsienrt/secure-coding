@@ -312,7 +312,7 @@ def delete_reported_target(target_id):
 #송금 기능
 @app.route('/product/<product_id>/pay', methods=['GET', 'POST'])
 def pay_product(product_id):
-    db = iget_db()
+    db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM product WHERE id = ?", (product_id,))
     product = cursor.fetchone()
