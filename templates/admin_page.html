@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}대시보드{% endblock %}
+{% block content %}
+<h3>관리자 페이지</h3>
+
+<h4>사용자 목록</h4>
+<ul>
+  {% for user in all_users %}
+    <li>{{ user.username }} (ID: {{ user.id }})</li>
+  {% endfor %}
+</ul>
+
+<h4>신고 목록</h4>
+<ul>
+  {% for row in all_reports %}
+    <li>
+      신고자: {{ row.username }}<br>
+      신고 대상: {{ row.target_id }}<br>
+      신고 사유: {{ row.reason }}<br>
+      
+      <form action="{{ url_for('delete_reported_target', target_id=row.target_id) }}" method="POST" style="display:inline;">
+        <button type="submit">삭제</button>
+      </form>
+
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
+
+

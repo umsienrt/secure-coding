@@ -2,7 +2,30 @@
 {% block title %}대시보드{% endblock %}
 {% block content %}
 <h2>대시보드</h2>
-<h3>등록된 상품</h3>
+<form method="GET" action="{{ url_for('dashboard') }}">
+  <input type="text" name="q" placeholder="상품 검색" value="{{ request.args.get('q', '') }}">
+  <button type="submit">검색</button>
+</form>
+
+{% if query %}
+  <h3>검색 결과: "{{ query }}"</h3>
+  {% if search_results %}
+    <ul>
+      {% for product in search_results %}
+        <li>
+          <a href="{{ url_for('view_product', product_id=product.id) }}">{{ product.title }}</a>
+          - 가격: {{ product.price }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>검색 결과가 없습니다.</p>
+  {% endif %}
+{% endif %}
+
+<hr>
+
+<h3>등록된 전체 상품</h3>
 <ul>
   {% for product in products %}
     <li>
@@ -19,6 +42,8 @@
   <input id="chat_input" type="text" placeholder="메시지를 입력하세요">
   <button onclick="sendMessage()">전송</button>
 </div>
+
+<a href="{{ url_for('admin_page') }}">관리자 페이지</a>
 
 <script type="text/javascript">
   var socket = io();

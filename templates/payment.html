@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}결제 방식 선택{% endblock %}
+{% block content %}
+
+<h2>{{ product.title }} 결제</h2>
+<p>가격: {{ product.price }}원</p><br>
+
+<form method="post">
+        <input type="radio" name="payment_method" value="계좌이체" id="bank">
+        <label for="bank">계좌이체</label>
+        <input type="radio" name="payment_method" value="카드결제" id="card">
+        <label for="card">카드결제</label>
+        <input type="radio" name="payment_method" value="간편결제" id="easy">
+        <label for="easy">간편결제</label>
+    <button type="submit">결제 진행</button>
+</form>
+{% endblock %}
+
